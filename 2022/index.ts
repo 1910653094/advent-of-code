@@ -1,5 +1,9 @@
-const main = (input: string) => {
-    const elves = input.split('\n\n');
+import { reader } from "../outils";
+import * as path from 'path';
+
+const task1 = () => {
+    const file = reader(path.join(__dirname, '../2022/input/day1.txt'));
+    const elves = file.split('\n\n');
     const elvesSum = elves
         .map((elvePackage: string) => elvePackage
             .split('\n')
@@ -11,7 +15,21 @@ const main = (input: string) => {
     console.log(highestElve);
 };
 
-const example = 
-"1000\n2000\n3000\n\n4000\n\n5000\n6000\n\n7000\n8000\n9000\n\n10000";
+const task2 = () => {
+    const file = reader(path.join(__dirname, '../2022/input/day1.txt'));
+    const elves = file.split('\n\n');
+    const elvesSum = elves
+        .map((elvePackage: string) => elvePackage
+            .split('\n')
+            .map((packageCalories: string) => +packageCalories)
+            .reduce((sum: number, packageCalories: number) => packageCalories + sum, 0)
+        );
 
-main(example);
+    const sortedElves = elvesSum.sort((n1: number, n2: number) => n2 - n1);
+
+    const sum = sortedElves.slice(0, 3).reduce((sum: number, elveSum: number) => elveSum + sum, 0);
+    console.log(sum);
+}
+
+task1();
+task2();
