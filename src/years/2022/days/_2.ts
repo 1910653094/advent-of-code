@@ -1,5 +1,5 @@
 import path from 'path';
-import { reader } from '../../outils';
+import { reader } from '../../../outils';
 
 const rock = 1;
 const paper = 2;
@@ -39,9 +39,8 @@ const getMove = (opponent: string, needAWin: boolean): Moves => {
   return Moves.myPaper;
 };
 
-export const main = () => {
-  const file = reader(path.join(__dirname, '../input/_2.txt'));
-  const moves = file.split('\n');
+const task1 = (input: string): void => {
+  const moves = input.split('\n');
 
   const points = moves.reduce((sum: number, move: string) => {
     const [opponent, me] = move.split(' ');
@@ -71,12 +70,11 @@ export const main = () => {
   console.log(points);
 };
 
-const task2 = () => {
+const task2 = (input: string): void => {
   const lossMove = 'X';
   const winMove = 'Z';
 
-  const file = reader(path.join(__dirname, '../input/_2.txt'));
-  const moves = file.split('\n');
+  const moves = input.split('\n');
 
   const points = moves.reduce((sum: number, move: string) => {
     const [opponent, outcome] = move.split(' ');
@@ -98,5 +96,11 @@ const task2 = () => {
   console.log(points);
 };
 
+const main = (): void => {
+  const file = reader(path.join(__dirname, '../input/_2.txt'));
+
+  task1(file);
+  task2(file);
+};
+
 main();
-task2();

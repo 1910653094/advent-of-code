@@ -2,17 +2,19 @@
   "name": "advent-of-code",
   "version": "1.0.0",
   "description": "Project for advent of code tasks",
-  "main": "src/2022/days/_2.ts",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node src/2022/days/_2.ts",
+    "start": "ts-node src/index.ts",
     "lint": "eslint src/",
     "lint:fix": "eslint src/ --fix"
   },
   "author": "Fabian Peyrat",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^6.5.0",
     "@types/node": "^18.11.10",
+    "@types/shelljs": "^0.8.11",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -20,5 +22,9 @@
     "prettier": "^2.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "inquirer": "^6.5.2",
+    "shelljs": "^0.8.5"
   }
 }
