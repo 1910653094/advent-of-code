@@ -1,0 +1,28 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
+    },
+    "ignorePatterns": ["*.js"],
+    "plugins": ["@typescript-eslint", "prettier", "import"],
+    "extends": ["airbnb-typescript"],
+    "rules": {
+        "prettier/prettier": "error",
+        "import/prefer-default-export": "off",
+        "no-unused-vars": ["error", { "args": "none" }],
+        "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }],
+
+        "import/no-extraneous-dependencies": [
+            "warn",
+            {
+                "devDependencies": [
+                    "/e2e/**/*.ts",
+                    "**/*.test.ts",
+                    "**/*.test.tsx",
+                    "/__setup__/**/*.ts"
+                ]
+            }
+        ],
+        "react/jsx-filename-extension": [0]
+    }
+}
