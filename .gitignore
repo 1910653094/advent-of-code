@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# individual
+./src/years/2021/input
+./src/years/2022/input
