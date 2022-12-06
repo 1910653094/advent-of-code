@@ -24,5 +24,4 @@ dist-ssr
 *.sw?
 
 # individual
-./src/years/2021/input
-./src/years/2022/input
+**/input
