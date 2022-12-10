@@ -25,6 +25,16 @@ export class Stack<T> implements IStack<T> {
     return this.storage[this.size() - 1];
   }
 
+  iterate(callback: (value: T, index: number) => void): void {
+    for (let i = 0; i < this.size(); i++) {
+      callback(this.storage[i], i);
+    }
+  }
+
+  toArray(): T[] {
+    return this.storage;
+  }
+
   size(): number {
     return this.storage.length;
   }
