@@ -6,7 +6,7 @@ const task1 = (elvesSum: number[]): void => {
   console.log(highestElve);
 };
 
-const task2 = (elvesSum: number[]) => {
+const task2 = (elvesSum: number[]): void => {
   const sortedElves = elvesSum.sort((n1: number, n2: number) => n2 - n1);
 
   const calorieSum = sortedElves
