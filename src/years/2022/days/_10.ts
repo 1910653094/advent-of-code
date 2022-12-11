@@ -6,13 +6,12 @@ type TCircleCommand = {
   readonly addx?: number;
 };
 
+type TPixel = '#' | '.';
+
 const calculateSignalStrength = (round: number, x: number): number => {
   const rounds = [20, 60, 100, 140, 180, 220];
 
-  if (rounds.includes(round)) {
-    console.log(round, x);
-    return round * x;
-  }
+  if (rounds.includes(round)) return round * x;
 
   return 0;
 };
@@ -37,7 +36,41 @@ const task1 = (commands: TCircleCommand[]): void => {
   console.log(signalStrength);
 };
 
-// const task2 = (): void => {};
+const drawPixel = (pixelPosition: number, x: number): TPixel => {
+  if (Math.abs(pixelPosition - x) <= 1) return '#';
+
+  return '.'; // to see the letters replace '.' by ' '
+};
+
+const task2 = (commands: TCircleCommand[]): void => {
+  let circleRound = 0; // every 40 rounds new line
+  let spritePosition = 1; // length of 3 so it goes from 0 to 2;
+  let pixels: TPixel[][] = [];
+
+  commands.forEach(({ addx }: TCircleCommand) => {
+    ++circleRound;
+    if (circleRound % 40 === 1) {
+      circleRound = 1;
+      pixels.push([]);
+    }
+    pixels[pixels.length - 1].push(drawPixel(circleRound - 1, spritePosition));
+
+    if (addx) {
+      ++circleRound;
+      if (circleRound % 40 === 1) {
+        circleRound = 1;
+        pixels.push([]);
+      }
+      pixels[pixels.length - 1].push(
+        drawPixel(circleRound - 1, spritePosition),
+      );
+
+      spritePosition += addx;
+    }
+  });
+
+  pixels.forEach((pixelLine: TPixel[]) => console.log(pixelLine.join('')));
+};
 
 const main = (): void => {
   const file = reader(path.join(__dirname, '../input/_10.txt'));
@@ -52,6 +85,7 @@ const main = (): void => {
   });
 
   task1(commands);
+  task2(commands);
 };
 
 main();
