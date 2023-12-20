@@ -45,10 +45,48 @@ const task1 = (monkeys: TMonkey[]): void => {
   console.log(monkeyBusiness);
 };
 
-// const task2 = (): void => {};
+const task2 = (monkeys: TMonkey[]): void => {
+  for (let rounds = 0; rounds < 20; rounds++) {
+    monkeys.forEach((monkey: TMonkey) => {
+      monkey.holdingItems.forEach((item: number) => {
+        let newWorryLevel = monkey.operation(item);
+        // newWorryLevel = monkeyGetsBored(newWorryLevel);
+
+        const throwToMonkey = monkey.checkTest(newWorryLevel)
+          ? monkey.option1
+          : monkey.option2;
+
+        monkeys[throwToMonkey].holdingItems.push(newWorryLevel);
+
+        ++monkey.inspectedAmount;
+      });
+
+      while (monkey.holdingItems.length > 0) monkey.holdingItems.pop();
+    });
+
+    const inspectedAmount = monkeys.map(
+      (monkey: TMonkey) => monkey.inspectedAmount,
+    );
+    console.log(inspectedAmount);
+  }
+
+  const inspectedAmounts = monkeys.map(
+    (monkey: TMonkey) => monkey.inspectedAmount,
+  );
+
+  //   console.log(inspectedAmounts);
+
+  const monkeyBusiness = inspectedAmounts
+    .sort((a: number, b: number) => b - a)
+    .slice(0, 2)
+    .reduce((sum: number, amount: number) => sum * amount, 1);
+
+  console.log(monkeyBusiness);
+};
 
 const main = (): void => {
   const file = reader(path.join(__dirname, '../input/_11.txt'));
+  const duplicatedMonkeys: TMonkey[] = [];
   const monkeys: TMonkey[] = file.split('\n\n').map((monkeyObject: string) => {
     const object = monkeyObject.split('\n');
 
@@ -93,6 +131,15 @@ const main = (): void => {
     const option1 = +object[4].split('throw to monkey ')[1];
     const option2 = +object[5].split('throw to monkey ')[1];
 
+    duplicatedMonkeys.push({
+      holdingItems: [...items],
+      operation,
+      checkTest: checker,
+      option1,
+      option2,
+      inspectedAmount: 0,
+    } as TMonkey);
+
     return {
       holdingItems: items,
       operation,
@@ -104,7 +151,7 @@ const main = (): void => {
   });
 
   task1(monkeys);
-  //   task2();
+  task2(duplicatedMonkeys);
 };
 
 main();
